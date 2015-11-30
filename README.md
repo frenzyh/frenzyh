@@ -1,0 +1,2 @@
+# frenzyh
+python rookie
