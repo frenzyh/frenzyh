@@ -1,7 +1,8 @@
 # frenzyh
-python rookie
+python rookie  
 
-All projects in this repertory are programed by python.
+All projects in this repertory are programed by python.  
+
 
 
 
