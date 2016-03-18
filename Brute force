@@ -15,5 +15,5 @@ for i in xrange(5,8)
 			break
 		else:
 			print hash
-			
+			  
 raw_input("plesae input enter to continue")
