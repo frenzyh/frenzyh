@@ -1,0 +1,82 @@
+import sys
+import requests
+from bs4 import BeautifulSoup
+
+reload(sys)
+sys.setdefaultencoding("utf-8")
+
+result = open('result.txt', 'wb')
+
+
+def select_test(Tag):
+    flag = 0
+    question = ''
+    answer = ''
+    options = ''
+    for child in Tag.children:
+        if child.name == 'div':
+            for child_child in child.children:
+                if child_child.name == 'p':
+                    question = child_child.string
+                    flag += 1
+                if child_child.name == 'input':
+                    answer = child_child['value']
+                    flag += 1
+                if child_child.name == 'ul':
+                    for child_child_child in child_child.children:
+                        if type(child_child_child.name) != 'uniconde':
+                            if str(type(child_child_child)) == "<class 'bs4.element.Tag'>":
+                                options += child_child_child.contents[1] + '\n'
+                if flag == 2:
+                    result.write(question + ' ----- ' + answer + '\n' + options)
+                    flag -= 2
+                    options = ''
+
+
+def ToF_test(Tag):
+    flag = 0
+    question = ''
+    answer = ''
+    for child in Tag.children:
+        if child.name == 'div':
+            for child_child in child.children:
+                if child_child.name == 'p':
+                    if str(type(child_child.next_element)) != "<class 'bs4.element.Tag'>":
+                        question = child_child.string
+                        flag += 1
+                if child_child.name == 'input':
+                    answer = child_child['value']
+                    flag += 1
+                if flag == 2:
+                    result.write(question + ' ----- ' + answer + '\n')
+                    flag -= 2
+
+
+def Scan(target, loop):
+    while(0 < loop):
+        soup = BeautifulSoup(target, "html.parser")
+        Tag = soup.p
+        for i in range(0, 5):
+            if Tag['id'] == 'single_test':
+                select_test(Tag)
+            if Tag['id'] == 'multiple_test':
+                select_test(Tag)
+            if Tag['id'] == 'trueorfalse_test':
+                ToF_test(Tag)
+            Tag = Tag.next_sibling.next_sibling
+        endline = '''
+        \n*****************************************************************\n*                                                               *\n*                     Here is one full exam                     *\n*                                                               *\n*                                                               *\n*****************************************************************\n\n'''
+        result.write(endline)
+        loop -= 1
+
+
+def main():
+    url = ''
+    target = requests.get(url)
+    target.encoding = 'utf-8'
+    Scan(target.text, 2)
+
+    result.close()
+
+if __name__ == '__main__':
+    main()
