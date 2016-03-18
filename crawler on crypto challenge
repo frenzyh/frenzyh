@@ -2,7 +2,7 @@ import sys
 import requests
 from bs4 import BeautifulSoup
 
-reload(sys)
+reload(sys) 
 sys.setdefaultencoding("utf-8")
 
 result = open('result.txt', 'wb')
