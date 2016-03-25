@@ -1,0 +1,40 @@
+#coding=utf-8
+import urllib
+import re 
+    """
+    抓取URL中的所有链接，输出到文件里找SQL点
+    之前在目录下创建一个url.txt用来存放urls
+    """
+
+r = re.compile(r'href="(http://www.*****.com/+?)"')#匹配
+
+def urls_from_url(url):
+	try:
+		p = urllib.urlopen(url)
+		contents = p.read()
+		result = r.finditer(contents)
+		p.close()
+		return result
+	except:
+		return []
+
+def get_url(url,data_cache,i):
+	urls =  urls_from_url(url)
+	for url in urls:
+		url = url.groups()[0]
+		if url not in data_cache :#查重
+			data_cache.append(url)
+		else:
+			continue
+		i += 1
+		#print i
+		print len(data_cache)
+		f=open("urls.txt","w")
+		f.write(data_cache)
+		print data_cache
+		get_url(url,data_cache,i)
+	f.close()
+
+data_cache = []
+i = 0
+get_url("http://www.*****.com",data_cache,i)
