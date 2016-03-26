@@ -16,4 +16,4 @@ for i in xrange(5,8)
 		else:
 			print hash
 			  
-raw_input("plesae input enter to continue")
+raw_input("plesae input enter to continue")  
