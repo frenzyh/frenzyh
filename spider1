@@ -39,6 +39,7 @@ def get_and_save_url(url,data_cache,i):
 		i += 1
 		get_and_save_url(url,data_cache,i)
 
+
 data_cache = []
 i = 0
 get_and_save_url("http://www.*****.com/",data_cache,i)
