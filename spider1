@@ -19,20 +19,16 @@ def save_contents_from_url(url):
 	opener = urllib.urlopen(url)
 	contents = opener.read()
 	opener.close()
-
 	filename = url.replace("http://","")
 	filename = filename.replace(".","_")
-	filename = filename.replace("/","|")
-
+	filename = filename.replace("/","|"
 	opene = open("/tmp/c/%s"%filename,"w")
 	opene.write(contents)
 	opene.close()
 	return 
 
 def get_and_save_url(url,data_cache,i):
-
 	save_contents_from_url(url) 
-
 	urls =  get_urls_from_contents(url)
 	for url in urls:
 		url = url.groups()[0]
