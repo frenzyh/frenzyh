@@ -7,7 +7,7 @@ sys.setdefaultencoding("utf-8")
 
 result = open('result.txt', 'wb')
 
-
+   
 def select_test(Tag):
     flag = 0
     question = ''
@@ -59,7 +59,7 @@ def Scan(target, loop):
         for i in range(0, 5):
             if Tag['id'] == 'single_test':
                 select_test(Tag)
-            if Tag['id'] == 'multiple_test':
+            if Tag['id'] == 'multiple_test': 
                 select_test(Tag)
             if Tag['id'] == 'trueorfalse_test':
                 ToF_test(Tag)
