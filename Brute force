@@ -1,7 +1,7 @@
 import hashlib
 import itertools
 a="67ae1a64661ac8b4494666f58c4822408dd0a3e4"  
-for i in xrange(5,8)  
+for i in xrange(5,8)    
 	s=["5","8","0","Q","w","i","n","=","(","}","*","+"]
 	psw=list(itertools.permutations(s,8))
 	for c in psw:   
