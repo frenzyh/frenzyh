@@ -5,7 +5,7 @@ for i in xrange(5,8)
 	s=["5","8","0","Q","w","i","n","=","(","}","*","+"]
 	psw=list(itertools.permutations(s,8))
 	for c in psw:   
-		e="".join(tuple(c))  
+		e="".join(tuple(c))    
 		print e
 		m = hashlib.sha1(e)
 		hash = m.hexdigest()
