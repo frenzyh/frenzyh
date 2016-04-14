@@ -9,7 +9,7 @@ for i in xrange(5,8)
 		print e
 		m = hashlib.sha1(e)
 		hash = m.hexdigest()
-		if hash==a:
+		if hash==a:  
 			print "the password is %s" % e
 			print hash
 			break
