@@ -2,7 +2,7 @@
 from scapy.all import *
 import os
 import sys
-import threading
+import threading  
 
 interface    = "en1"#接口
 target_ip    = ""#投毒的目标IP	
