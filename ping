@@ -1,0 +1,32 @@
+#coding=utf-8
+
+#anti sniff
+#coding=utf-8
+
+import sys 
+import os 
+import thread 
+
+def ping_ip(ip_str): 
+  cmd = ["ping", "-{op}".format(op="c"),"1", ip_str] 
+  output = os.popen(" ".join(cmd)).readlines() 
+  flag = False
+  for line in list(output): 
+    if not line: 
+      continue
+    if str(line).upper().find("TTL") >=0: 
+      flag = True
+      break
+  if flag: 
+    print "%s is ok"%ip_str 
+  
+def find_ip(ip_prefix): 
+  for i in range(1,256): 
+    ip = '%s.%s'%(ip_prefix,i) 
+    thread.start_new_thread(ping_ip, (ip,)) 
+    
+if __name__ == "__main__": 
+  commandargs = sys.argv[1:] 
+  args = "".join(commandargs)   
+  ip_prefix = '.'.join(args.split('.')[:-1]) 
+  find_ip(ip_prefix) 
