@@ -7,7 +7,7 @@ import threading
 interface    = "en1"#接口
 target_ip    = ""#投毒的目标IP	
 gateway_ip   = ""#投毒的路由
-packet_count = 1000
+packet_count = 1000  
 poisoning    = True
     
 def restore(gateway_ip,gateway_mac,target_ip,target_mac):
