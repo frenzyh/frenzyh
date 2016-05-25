@@ -4,22 +4,21 @@
 from scapy.all import *
 import sys,getopt
 
-def usage():
-        print "Usage: sudo ./ArpScanner.py "
 
-def main(argv):
+def main(argv，ip):
         try:
                 opts, args = getopt.getopt(argv, "")
         except getopt.GetoptError:
                 usage()
                 sys.exit(2)
 
-        for ipFix in range(1,254):
-                ip = "192.168.1."+str(ipFix)
-                arpPkt = Ether(dst="ff:ff:ff:ff:ff:ff")/ARP(pdst=ip, hwdst="ff:ff:ff:ff:ff:00")
+        for iplater in range(1,254):
+                ip = ip+str(iplater)
+                arpPkt = Ether(dst="ff:ff:ff:ff:ff:fe")/ARP(pdst=ip, hwdst="00:00:00:00")
                 res = srp1(arpPkt, timeout=1, verbose=0)
                 if res:
-                        print "IP: " + res.psrc + "     MAC: " + res.hwsrc
+                        print "开启混杂模式的IP: " + res.psrc 
 
 if __name__ == "__main__":
+        ip=raw_input("缺省最后8位的ip地址:");
         main(sys.argv[1:])
