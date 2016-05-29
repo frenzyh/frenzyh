@@ -1,0 +1,71 @@
+# -*- coding: utf-8 -*-
+import xlrd   #excel读写
+import numpy as np
+from  pylab import *
+from scipy.fftpack import fft #傅里叶
+def getdate():
+    by_index=0
+    data = xlrd.open_workbook('test.xlsx')
+    table = data.sheets()[by_index] #通过索引顺序获取数据
+    flow=table.col_values(0) #获取第1列，列值
+    flow=flow[1:len(flow)]
+    L=len(flow)
+    figure()
+    plot(flow,'r')
+def yule_walker():
+    xcorr = lambda x,y : (ifft(fft(x,2*len(x)+1)*fft(y,2*len(y)+1).conjugate())).real
+    signal_cor=xcorr(flow,flow)
+    signal_cor=signal_cor/(L-1)
+# yule—Walker方程
+    m=6
+    R=zeros([m+1,m+1])
+    for i in xrange(m+1):
+        for j in xrange(m+1):
+            R[i,j]=signal_cor[abs(i-j)]
+    B=zeros(m+1)
+    B[0]=1
+    C=zeros([m+1,m+1])
+    C[:][0:m]=R[:][1:]
+    C[:][m]=(-B)
+    D=-R[:][0]
+    apk=np.linalg.solve(C.T,D.T)  #解矩阵
+    cov=apk[m]
+    print cov
+    ap=apk[0:m]
+    print 'the value of filter A=:' , ap        #计算输入白噪声
+    noise=np.random.normal(0,np.sqrt(cov)*0.01,L+2)
+    predict_mins=1
+    N=predict_mins-1
+    traffic=zeros(L+2)
+    #利用回归系数预测
+    for c in xrange(L/predict_mins):
+        for i in xrange(predict_mins):
+            t=i
+            for j in xrange(m):
+                if t>0:
+                    traffic[c*predict_mins+i]=traffic[c*predict_mins+i]-ap[j]*traffic[c*predict_mins+i-j-1]
+                    t=t-1
+                else:
+                    traffic[c*predict_mins+i]=traffic[c*predict_mins+i]-ap[j]*flow[N-j]
+            N=N+1
+
+    for i in xrange(len(traffic)):
+        if i>(L-1):
+            for j in xrange(m):
+                traffic[i]=traffic[i]-ap[j]*flow[L-j-1]
+    print 'Stock days is : ',N
+
+    error=0
+    for i in xrange(L+2):
+        traffic[i]=traffic[i]+noise[i]
+    for i in xrange(L):
+        error=error+abs(traffic[i]-flow[i])    #误差
+    plot(traffic[0:L+2])
+    print   'The error of Predict is : ',error/sum(flow)
+    xlabel('days')
+    ylabel('traffic')
+    title('Raw data and Predict data')
+    show()
+if __name__ == '__main__':
+    getdate()
+    yule_walker()
