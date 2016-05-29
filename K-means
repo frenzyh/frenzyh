@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
   
   
 #计算距离  
-def euclDistance(vector1, vector2):  
-    return sqrt(sum(power(vector2 - vector1, 2)))  
+def euclDistance(point1, point2):  
+    return sqrt(sum(power(point2 - point1, 2)))  
   
 # 随机例子 
 def initCentroids(dataSet, k):  
@@ -55,16 +55,16 @@ def kmeans(dataSet, k):
 def showCluster(dataSet, k, centroids, clusterAssment):  
     numSamples, dim = dataSet.shape  
     if dim != 2:  
-        print "Sorry! I can not draw because the dimension of your data is not 2!"  
+        print "error"  
         return 1  
   
     mark = ['or', 'ob', 'og', 'ok', '^r', '+r', 'sr', 'dr', '<r', 'pr']  
     if k > len(mark):  
-        print "Sorry! Your k is too large! please contact Zouxy"  
+        print "error"  
         return 1  
   
-    # 画图  
-    for i in xrange(numSamples):  
+     
+    for i in xrange(numSamples):  # 画图 
         markIndex = int(clusterAssment[i, 0])  
         plt.plot(dataSet[i, 0], dataSet[i, 1], mark[markIndex])  
   
@@ -78,7 +78,7 @@ if __name__ == '__main__':
     dataSet = []  
     fileIn = open('D:/execrise/test.txt')  
     for line in fileIn.readlines():  
-        lineArr = line.strip().split('，')  
+        lineArr = line.strip().split(',')  
         dataSet.append([float(lineArr[0]), float(lineArr[1])])   
     dataSet = mat(dataSet)  
     k = 4  
