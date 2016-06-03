@@ -4,7 +4,7 @@ import time
 import matplotlib.pyplot as plt  
   
   
-#计算距离  
+#计算距离    
 def euclDistance(point1, point2):  
     return sqrt(sum(power(point2 - point1, 2)))  
   
