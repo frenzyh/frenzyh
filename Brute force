@@ -8,7 +8,7 @@ for i in xrange(5,8)
 		e="".join(tuple(c))    
 		print e
 		m = hashlib.sha1(e)
-		hash = m.hexdigest()
+		hash = m.hexdigest()  
 		if hash==a:    
 			print "the password is %s" % e  
 			print hash
