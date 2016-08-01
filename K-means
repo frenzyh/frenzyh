@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
   
 #计算距离    
 def euclDistance(point1, point2):  
-    return sqrt(sum(power(point2 - point1, 2)))  
+    return sqrt(sum(power(point2 - point1, 2)))   
   
 # 随机例子 
 def initCentroids(dataSet, k):  
