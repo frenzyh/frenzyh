@@ -9,7 +9,7 @@ def euclDistance(point1, point2):
     return sqrt(sum(power(point2 - point1, 2)))   
   
 # 随机例子 
-def initCentroids(dataSet, k):  
+def initCentroids(dataSet, k):   
     numSamples, dim = dataSet.shape  
     centroids = zeros((k, dim))  
     for i in range(k):  
