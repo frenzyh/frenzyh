@@ -18,7 +18,7 @@ def main(argv，ip):
                 res = srp1(arpPkt, timeout=1, verbose=0)
                 if res: 
                         print "开启混杂模式的IP: " + res.psrc 
-
+   
 if __name__ == "__main__":
         ip=raw_input("缺省最后8位的ip地址:");
         main(sys.argv[1:])
